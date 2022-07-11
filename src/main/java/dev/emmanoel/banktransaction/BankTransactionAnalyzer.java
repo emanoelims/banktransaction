@@ -16,14 +16,19 @@ public class BankTransactionAnalyzer {
         final Path path = Paths.get(RESOURCE + FILE_NAME);
         final List<String> lines = Files.readAllLines(path);
         final List<BankTransaction> bankTransactions = bankStatementParser.parseFromCSV(lines);
-        collectSummary(bankTransactions);
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
+        collectSummary(bankStatementProcessor);
     }
 
-    private static void collectSummary(List<BankTransaction> bankTransactions) {
+    private static void collectSummary(final BankStatementProcessor bankStatementProcessor) {
         System.out.printf("The Total of all transactions is %.2f\n",
-            calculateTotalAmount(bankTransactions));
+            bankStatementProcessor.calculateTotalAmount());
         System.out.printf("The Total of transactions in month January is %.2f\n",
-            calculateTotalAmountInMonth(bankTransactions, Month.JANUARY));
+            bankStatementProcessor.calculateTotalInMonth(Month.JANUARY));
+        System.out.printf("The Total of transactions in February is %.2f\n",
+            bankStatementProcessor.calculateTotalInMonth(Month.FEBRUARY));
+        System.out.printf("The Total of salary is %.2f\n",
+            bankStatementProcessor.calculateTotalForCategory("Salary"));
     }
 
     private static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
