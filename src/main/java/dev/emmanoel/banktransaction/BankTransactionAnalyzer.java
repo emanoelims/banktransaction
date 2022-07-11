@@ -16,6 +16,10 @@ public class BankTransactionAnalyzer {
         final Path path = Paths.get(RESOURCE + FILE_NAME);
         final List<String> lines = Files.readAllLines(path);
         final List<BankTransaction> bankTransactions = bankStatementParser.parseFromCSV(lines);
+        collectSummary(bankTransactions);
+    }
+
+    private static void collectSummary(List<BankTransaction> bankTransactions) {
         System.out.printf("The Total of all transactions is %.2f\n",
             calculateTotalAmount(bankTransactions));
         System.out.printf("The Total of transactions in month January is %.2f\n",
