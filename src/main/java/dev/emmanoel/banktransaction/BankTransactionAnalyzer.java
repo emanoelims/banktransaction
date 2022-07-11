@@ -30,22 +30,4 @@ public class BankTransactionAnalyzer {
         System.out.printf("The Total of salary is %.2f\n",
             bankStatementProcessor.calculateTotalForCategory("Salary"));
     }
-
-    private static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
-        double total = 0d;
-        for (final BankTransaction bankTransaction : bankTransactions) {
-            total += bankTransaction.getAmount();
-        }
-        return total;
-    }
-
-    private static double calculateTotalAmountInMonth(final List<BankTransaction> bankTransactions, final Month month) {
-        double total = 0d;
-        for (final BankTransaction bankTransaction : bankTransactions) {
-            if (bankTransaction.getDate().getMonth() == month) {
-                total += bankTransaction.getAmount();
-            }
-        }
-        return total;
-    }
 }
