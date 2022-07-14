@@ -10,7 +10,7 @@ import java.util.List;
 public class BankStatementAnalyzer {
     private static final String RESOURCE = "src/main/resources/";
 
-    private static void collectSummary(final BankStatementProcessor bankStatementProcessor) {
+    private void collectSummary(final BankStatementProcessor bankStatementProcessor) {
         System.out.printf("The Total of all transactions is %.2f\n",
             bankStatementProcessor.calculateTotalAmount());
         System.out.printf("The Total of transactions in month January is %.2f\n",
