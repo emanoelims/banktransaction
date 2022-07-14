@@ -10,6 +10,14 @@ import java.util.List;
 public class BankStatementAnalyzer {
     private static final String RESOURCE = "src/main/resources/";
 
+    public void analyzer(String fileName, final BankStatementParser bankStatementParser) throws IOException {
+        final Path path = Paths.get(RESOURCE + fileName);
+        final List<String> lines = Files.readAllLines(path);
+        final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFrom(lines);
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
+        collectSummary(bankStatementProcessor);
+    }
+
     private void collectSummary(final BankStatementProcessor bankStatementProcessor) {
         System.out.printf("The Total of all transactions is %.2f\n",
             bankStatementProcessor.calculateTotalAmount());
@@ -19,13 +27,5 @@ public class BankStatementAnalyzer {
             bankStatementProcessor.calculateTotalInMonth(Month.FEBRUARY));
         System.out.printf("The Total of salary is %.2f\n",
             bankStatementProcessor.calculateTotalForCategory("Salary"));
-    }
-
-    public void analyzer(String fileName, final BankStatementParser bankStatementParser) throws IOException {
-        final Path path = Paths.get(RESOURCE + fileName);
-        final List<String> lines = Files.readAllLines(path);
-        final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFrom(lines);
-        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
-        collectSummary(bankStatementProcessor);
     }
 }
