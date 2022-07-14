@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.time.Month;
 import java.util.List;
 
-public class BankTransactionAnalyzer {
+public class BankStatementAnalyzer {
     private static final String RESOURCE = "src/main/resources/";
     private static final String FILE_NAME = "transactions.csv";
     private static final BankStatementParser bankStatementParser = new BankStatementCSVParser();
