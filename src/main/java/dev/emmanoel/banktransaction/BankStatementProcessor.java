@@ -1,6 +1,7 @@
 package dev.emmanoel.banktransaction;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankStatementProcessor {
@@ -8,6 +9,16 @@ public class BankStatementProcessor {
 
     public BankStatementProcessor(final List<BankTransaction> bankTransactions) {
         this.bankTransactions = bankTransactions;
+    }
+
+    public List<BankTransaction> findTransactions(final BankTransactionFilter bankTransactionFilter) {
+        final List<BankTransaction> bankTransactions = new ArrayList<>();
+        for (final BankTransaction bankTransaction : this.bankTransactions) {
+            if (bankTransactionFilter.test(bankTransaction)) {
+                bankTransactions.add(bankTransaction);
+            }
+        }
+        return bankTransactions;
     }
 
     public double calculateTotalAmount() {
